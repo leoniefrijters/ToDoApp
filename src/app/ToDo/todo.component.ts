@@ -9,12 +9,19 @@ import { Component } from '@angular/core';
 export class TodoComponent {
   pageTitle:string = 'To Do';
   todo = [
-    {specific : 'todo', prio : '1'},
-    {specific : 'todo2', prio : '2'},
-    {specific : 'todo3', prio : '3'}
+    {content : 'todo', done : true, prio : '1'},
+    {content : 'todo2', done : false, prio : '2'},
+    {content : 'todo3', done : false, prio : '3'}
   ];
 
-  removeTodo(i: number): void{
-    
+  removeTodo(id: number): void{
+    this.todo = this.todo.filter((v,i) => i !== id);
+  };
+
+  toggleDone(id: number){
+    this.todo.map((v, i) => {
+      if (i == id) v.done = !v.done;
+      return v;   
+    });
   };
 }

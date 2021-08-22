@@ -10,8 +10,8 @@
     <tbody>
       <tr *ngFor = "let todo of todo; let i = index">
         <td scope = "row">{{ i + 1 }}</td> <!--> let index start at 1 <-->
-        <td>{{ todo.specific }}</td>
-        <td>1</td>
+        <td (click)="toggleDone(i)" [ngClass]="todo.done ? 'strikethrough' : 'null'">{{ todo.content }}</td>
+        <td>{{ todo.prio }}</td>
         <button type="button" class="btn btn-outline-secondary" (click)="removeTodo(i)">remove</button>
       </tr>
     </tbody>

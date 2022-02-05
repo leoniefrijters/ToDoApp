@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Todo } from '../models/Todo';
 
 @Component({
   selector: 'pm-todo',
@@ -7,21 +9,27 @@ import { Component } from '@angular/core';
 })
 
 export class TodoComponent {
+  index = 1;
   pageTitle:string = 'To Do';
-  todo = [
-    {content : 'todo', done : true, prio : '1'},
-    {content : 'todo2', done : false, prio : '2'},
-    {content : 'todo3', done : false, prio : '3'}
-  ];
+  newItem?: Todo;
+  todo: Todo[] = [];
 
   removeTodo(id: number): void{
-    this.todo = this.todo.filter((v,i) => i !== id);
+    this.todo = this.todo.filter(todo => todo.index != id);
   };
 
   toggleDone(id: number){
-    this.todo.map((v, i) => {
-      if (i == id) v.done = !v.done;
-      return v;   
-    });
+    this.todo.forEach(todo => {
+      if(todo.index === id){
+        todo.done = !todo.done;
+      }
+    })
+  };
+
+  onSubmit(f: NgForm){
+    this.newItem = {index : this.index, content: f.value.content, done: false, prio: f.value.prio}
+    this.todo.push(this.newItem);
+    this.index++;
+    f.reset();
   };
 }

@@ -35,7 +35,10 @@ export class TodoComponent {
   };
 
   private addNewTodo(f: NgForm){
-    this.newItem = {index : this.index, content: f.value.content, done: false, prio: f.value.prio}
+    this.newItem = {index : this.index, 
+      content: f.value.content, 
+      done: false, 
+      prio: f.value.prio ? f.value.prio : 10}
     this.todo.push(this.newItem);
     localStorage.setItem('todo', JSON.stringify(this.todo));
     this.index++;

@@ -2,9 +2,9 @@
 
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
   To Do: 
-  <input type="text" name="content" ngModel>
+  <input type="text" name="content" placeholder="enter to do" ngModel>
   Prio: 
-  <input type="text" name="prio" ngModel>
+  <input type="number" name="prio" placeholder="enter priority" ngModel>
   <button class="btn btn-outline-secondary">Submit</button>
 </form>
  
@@ -12,7 +12,7 @@
 		<table  class="table table-striped">
 			<thead>
 				<th scope = "col">My To Do's</th>
-				<th scope = "col">Prio</th>
+				<th scope = "col">Priority</th>
 			</thead>
 			<tbody>
 				<ng-container *ngFor = "let todo of todo;">
@@ -30,7 +30,7 @@
 		<table  class="table table-striped">
 			<thead>
 				<th scope = "col">My Done's</th>
-				<th scope = "col">Prio</th>
+				<th scope = "col">Priority</th>
 			</thead>
 			<tbody>
 				<ng-container *ngFor = "let todo of todo;">

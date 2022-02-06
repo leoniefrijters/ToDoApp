@@ -1,23 +1,47 @@
 <h2>{{ pageTitle }}</h2>
 
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+  To Do: 
   <input type="text" name="content" ngModel>
+  Prio: 
   <input type="text" name="prio" ngModel>
   <button class="btn btn-outline-secondary">Submit</button>
 </form>
  
 <div>
-  <table  class="table table-striped">
-    <thead>
-      <th scope = "col">Todo</th>
-      <th scope = "col">Prio</th>
-    </thead>
-    <tbody>
-      <tr *ngFor = "let todo of todo; let i = index">
-        <td (click)="toggleDone(todo.index)" [ngClass]="todo.done ? 'strikethrough' : 'null'">{{ todo.content }}</td>
-        <td>{{ todo.prio }}</td>
-        <button type="button" class="btn btn-outline-secondary" (click)="removeTodo(todo.index)">remove</button>
-      </tr>
-    </tbody>
-  </table>
+		<table  class="table table-striped">
+			<thead>
+				<th scope = "col">My To Do's</th>
+				<th scope = "col">Prio</th>
+			</thead>
+			<tbody>
+				<ng-container *ngFor = "let todo of todo;">
+					<tr>
+						<ng-container *ngIf ="!todo.done" >
+							<td (click)="toggleDone(todo.index)" [ngClass]="todo.done ? 'strikethrough' : 'null'">{{ todo.content }}</td>
+							<td>{{ todo.prio }}</td>
+							<button type="button" class="btn btn-outline-secondary" (click)="removeTodo(todo.index)">remove</button>
+						</ng-container>
+					</tr>
+				</ng-container>
+			</tbody>
+		</table>
+
+		<table  class="table table-striped">
+			<thead>
+				<th scope = "col">My Done's</th>
+				<th scope = "col">Prio</th>
+			</thead>
+			<tbody>
+				<ng-container *ngFor = "let todo of todo;">
+					<tr>
+						<ng-container *ngIf ="todo.done" >
+							<td (click)="toggleDone(todo.index)" [ngClass]="todo.done ? 'strikethrough' : 'null'">{{ todo.content }}</td>
+							<td>{{ todo.prio }}</td>
+							<button type="button" class="btn btn-outline-secondary" (click)="removeTodo(todo.index)">remove</button>
+						</ng-container>
+					</tr>
+				</ng-container>
+			</tbody>
+		</table>
 </div>

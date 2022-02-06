@@ -9,13 +9,15 @@ import { Todo } from '../models/Todo';
 })
 
 export class TodoComponent {
-  index = 1;
+  index = localStorage.getItem('index') ? Number(localStorage.getItem('index')) : 1;
   pageTitle:string = 'To Do';
   newItem?: Todo;
-  todo: Todo[] = [];
+  data = localStorage.getItem('todo');
+  todo: Todo[] = this.data ? JSON.parse(this.data) : [];
 
   removeTodo(id: number): void{
     this.todo = this.todo.filter(todo => todo.index != id);
+    localStorage.setItem('todo', JSON.stringify(this.todo));
   };
 
   toggleDone(id: number){
@@ -24,12 +26,19 @@ export class TodoComponent {
         todo.done = !todo.done;
       }
     })
+    localStorage.setItem('todo', JSON.stringify(this.todo));
   };
 
   onSubmit(f: NgForm){
-    this.newItem = {index : this.index, content: f.value.content, done: false, prio: f.value.prio}
-    this.todo.push(this.newItem);
-    this.index++;
+    this.addNewTodo(f);
     f.reset();
   };
+
+  private addNewTodo(f: NgForm){
+    this.newItem = {index : this.index, content: f.value.content, done: false, prio: f.value.prio}
+    this.todo.push(this.newItem);
+    localStorage.setItem('todo', JSON.stringify(this.todo));
+    this.index++;
+    localStorage.setItem('index', String(this.index));
+  }
 }
